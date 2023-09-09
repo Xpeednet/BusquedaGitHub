@@ -91,5 +91,3 @@ created()
     }
   }
 });
-
-const mountedApp = app.mount("#app")

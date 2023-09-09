@@ -15,7 +15,8 @@
         <!-- Favorites -->
         <div class="favorites">
             <transition-group name="list">
-                <div class="favorite" v-bind:class="{ 'favorite--selected': checkFavorite(favorite.login) }" v-for="favorite in allFavorites" v-bind:key="favorite.id">
+                <div class="favorite" v-bind:class="{ 'favorite--selected': checkFavorite(favorite.login) }"
+                    v-for="favorite in allFavorites" v-bind:key="favorite.id">
                     <a v-on:click.prevent="clickFavorite(favorite)" href="#" class="favorite__avatar">
                         <img v-bind:src="favorite.avatar_url" v-bind:alt="favorite.name" class="favorite__avatar">
                     </a>
@@ -37,21 +38,10 @@
 
             <!-- Result -->
             <Transition>
-                <div class="result" v-if="result">
-                    <a v-if="isFavorite" href="#" class="result__toggle-favorite"
-                        v-on:click.prevent="removeFavorite">Eliminar Favorito 🔻</a>
-                    <a v-else href="#" class="result__toggle-favorite" v-on:click.prevent="addFavorite">Agregar Favorito
-                        ⭐️</a>
-
-                    <h2 class="result_name">{{result.name}}</h2>
-                    <img v-bind:src="result.avatar_url" v-bind:alt="result.name" class="result__avatar">
-                    <p class="result__bio">{{result.bio}}</p>
-                    <br>
-                    <a v-bind:href="result.blog" target="_blank" class="result__blog">{{result.blog}}</a>
-                </div>
-                <div v-else>
+                <app-profile v-if="result" v-bind:result="result" v-bind:is-favorite="isFavorite" v-on:add-favorite="addFavorite" v-on:remove-favorite="removeFavorite" />
+                <!-- <div v-else>
                     <p>Ingrese nombre del usuario a buscar...</p>
-                </div>
+                </div> -->
             </Transition>
             <!-- Error -->
             <div class="result__error" v-if="error">{{error}}</div>
@@ -59,6 +49,8 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/components/appProfile.js"></script>
+    <script>const mountedApp = app.mount("#app")</script>
 </body>
 
 </html>
