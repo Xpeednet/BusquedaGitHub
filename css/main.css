@@ -13,7 +13,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkslateblue;
+  background-color:cornflowerblue;
   font-size: 1.3rem;
 }
 
@@ -47,7 +47,7 @@ body {
 /* Result */
 .result {
   position: relative;
-  background-color: purple;
+  background-color:lightseagreen ;
   border-radius: 0.3rem;
   box-shadow: 2px 2px 3px gray;
   color: white;
@@ -88,7 +88,7 @@ body {
 
 .result__blog {
   grid-area: blog;
-  color: goldenrod;
+  color:gold;
 }
 
 .result__error {

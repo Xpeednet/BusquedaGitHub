@@ -14,12 +14,15 @@
     <div id="app">
         <!-- Favorites -->
         <div class="favorites">
-            <div class="favorite" v-for="favorite in allFavorites">
-                <a v-bind:href="favorite.blog" target="_blank" class="favorite__avatar">
-                    <img v-bind:src="favorite.avatar_url" v-bind:alt="favorite.name" class="favorite__avatar">
-                </a>
-            </div>
+            <transition-group name="list">
+                <div class="favorite" v-bind:class="{ 'favorite--selected': checkFavorite(favorite.login) }" v-for="favorite in allFavorites" v-bind:key="favorite.id">
+                    <a v-on:click.prevent="clickFavorite(favorite)" href="#" class="favorite__avatar">
+                        <img v-bind:src="favorite.avatar_url" v-bind:alt="favorite.name" class="favorite__avatar">
+                    </a>
+                </div>
+            </transition-group>
         </div>
+
 
         <!-- Content -->
         <article class="content">
@@ -33,21 +36,23 @@
             </form>
 
             <!-- Result -->
-            <div class="result" v-if="result">
-                <a v-if="isFavorite" href="#" class="result__toggle-favorite"
-                    v-on:click.prevent="removeFavorite">Eliminar Favorito 🔻</a>
-                <a v-else href="#" class="result__toggle-favorite" v-on:click.prevent="addFavorite">Agregar Favorito
-                    ⭐️</a>
+            <Transition>
+                <div class="result" v-if="result">
+                    <a v-if="isFavorite" href="#" class="result__toggle-favorite"
+                        v-on:click.prevent="removeFavorite">Eliminar Favorito 🔻</a>
+                    <a v-else href="#" class="result__toggle-favorite" v-on:click.prevent="addFavorite">Agregar Favorito
+                        ⭐️</a>
 
-                <h2 class="result_name">{{result.name}}</h2>
-                <img v-bind:src="result.avatar_url" v-bind:alt="result.name" class="result__avatar">
-                <p class="result__bio">{{result.bio}}</p>
-                <br>
-                <a v-bind:href="result.blog" target="_blank" class="result__blog">{{result.blog}}</a>
-            </div>
-            <div v-else>
-                <p>Ingrese nombre del usuario a buscar...</p>
-            </div>
+                    <h2 class="result_name">{{result.name}}</h2>
+                    <img v-bind:src="result.avatar_url" v-bind:alt="result.name" class="result__avatar">
+                    <p class="result__bio">{{result.bio}}</p>
+                    <br>
+                    <a v-bind:href="result.blog" target="_blank" class="result__blog">{{result.blog}}</a>
+                </div>
+                <div v-else>
+                    <p>Ingrese nombre del usuario a buscar...</p>
+                </div>
+            </Transition>
             <!-- Error -->
             <div class="result__error" v-if="error">{{error}}</div>
         </article>
